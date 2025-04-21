@@ -1,6 +1,6 @@
 import datetime 
 
-# Ask the user for the date to use as filename
+# user need to enter the date
 date_input = input("Enter today's date (YYYY-MM-DD): ")
 
 # Set the filename based on the entered date
@@ -9,11 +9,11 @@ filename = f"{date_input}.txt"
 total = 0  # Initial balance is 0
 
 while True:
-    print("\n1. Add Income\n2. Add Expense\n3. Show Summary\n4. Reset Data\n5. Quit")
+    print("\n1. Enter Income\n2. Enter Expense\n3. Summary table\n4. Reset Data\n5. Quit")
     choice = int(input("Choose an option: "))
 
     if choice == 1:
-        income = float(input("Enter your total income amount: "))
+        income = float(input("Enter your total income : "))
         total += income
         print("The total income is:", total)
 
@@ -22,14 +22,14 @@ while True:
             file.write("The total income is: " + str(total) + "\n")
 
     elif choice == 2:
-        category = input("Enter expense category (food, rent, transport): ").lower()
-        amount = float(input(f"Enter amount for {category}: "))
+        used = input("Enter how the income was used: ").lower()
+        amount = float(input(f"Enter amount for {used}: "))
         total -= amount
         print("The total balance is now:", total)
 
         # Save to file
         with open(filename, "a") as file:
-            file.write(f"Expense ({category}): -{amount}\n")
+            file.write(f"Expense ({used}): -{amount}\n")
 
     elif choice == 3:
         print("The total balance is now:", total)
@@ -40,7 +40,7 @@ while True:
 
     elif choice == 4:
         total = 0
-        print("Data has been reset. The total balance is now 0.")
+        print("Data is reset. The  balance is  0.")
 
         # Save to file
         with open(filename, "a") as file:
