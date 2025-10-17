@@ -14,7 +14,7 @@ Reset Data: Start fresh anytime without worrying about losing previous records.
 
 User-Friendly GUI: A clean and intuitive interface built with Tkinter — no terminal needed.
 
-How It Works
+✅How It Works
 
 Open the application.
 
@@ -26,7 +26,7 @@ Your transaction will be recorded, and the summary will update instantly.
 
 Your total balance is always displayed at the top.
 
-Setup
+⚙️Setup
 
 Make sure you have Python 3 installed.
 
@@ -39,7 +39,7 @@ python finance_tracker.py
 
 The app will create a JSON file for the day automatically to save your transactions.
 
-Screenshot
+📸Screenshot
 
 <img width="1070" height="898" alt="image" src="https://github.com/user-attachments/assets/33a1ef81-c9bc-45d8-b0c0-167744a06963" />
 
