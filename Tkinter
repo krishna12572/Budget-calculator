@@ -1,0 +1,119 @@
+import tkinter as tk
+from tkinter import messagebox
+import json
+import os
+import datetime
+
+# ====== Setup JSON File ======
+today = str(datetime.date.today())
+json_file = today + ".json"
+
+if os.path.exists(json_file):
+    with open(json_file, "r") as file:
+        data = json.load(file)
+else:
+    data = {"transactions": [], "total": 0}
+
+total = data["total"]
+
+# ====== Functions ======
+def save_to_json():
+    with open(json_file, "w") as file:
+        json.dump(data, file, indent=4)
+
+def add_transaction(t_type):
+    global total
+    try:
+        amount = float(entry_amount.get())
+        category = entry_category.get().strip()
+        if not category:
+            messagebox.showerror("Error", "Category cannot be empty")
+            return
+        if t_type == "Income":
+            total += amount
+            display_amount = amount
+        else:
+            total -= amount
+            display_amount = -amount
+
+        transaction = {
+            "date": str(datetime.date.today()),
+            "type": t_type,
+            "category": category,
+            "amount": display_amount,
+            "balance": total
+        }
+        data["transactions"].append(transaction)
+        data["total"] = total
+        save_to_json()
+        update_summary()
+        messagebox.showinfo("Success", t_type + " added:", amount)
+        clear_inputs()
+    except ValueError:
+        messagebox.showerror("Error", "Please enter a valid number")
+
+def add_income():
+    add_transaction("Income")
+
+def add_expense():
+    add_transaction("Expense")
+
+def reset_data():
+    global total, data
+    if messagebox.askyesno("Confirm", "Do you want to reset all data?"):
+        data = {"transactions": [], "total": 0}
+        total = 0
+        save_to_json()
+        update_summary()
+        messagebox.showinfo("Reset", "All data has been reset!")
+
+def update_summary():
+    text_summary.delete(1.0, tk.END)
+    for t in data["transactions"]:
+        text_summary.insert(tk.END, t["date"], "|", t["type"], "|", t["category"], "|", t["amount"], "| Balance:", t["balance"], "\n")
+    label_balance.config(text="Total Balance: " + str(total))
+
+def clear_inputs():
+    entry_amount.delete(0, tk.END)
+    entry_category.delete(0, tk.END)
+
+# ====== GUI Setup ======
+window = tk.Tk()
+window.title("Simple Finance Tracker")
+window.geometry("600x500")
+window.resizable(False, False)
+
+# Title
+tk.Label(window, text="💰 Simple Finance Tracker", font=("Arial", 18, "bold")).pack(pady=10)
+
+# Input Frame
+frame_input = tk.Frame(window)
+frame_input.pack(pady=10)
+
+tk.Label(frame_input, text="Amount:").grid(row=0, column=0, padx=5)
+entry_amount = tk.Entry(frame_input)
+entry_amount.grid(row=0, column=1, padx=5)
+
+tk.Label(frame_input, text="Category:").grid(row=0, column=2, padx=5)
+entry_category = tk.Entry(frame_input)
+entry_category.grid(row=0, column=3, padx=5)
+
+# Buttons
+frame_buttons = tk.Frame(window)
+frame_buttons.pack(pady=10)
+
+tk.Button(frame_buttons, text="Add Income", bg="#7FFF7F", command=add_income).grid(row=0, column=0, padx=10)
+tk.Button(frame_buttons, text="Add Expense", bg="#FF7F7F", command=add_expense).grid(row=0, column=1, padx=10)
+tk.Button(frame_buttons, text="Reset Data", bg="#FFD700", command=reset_data).grid(row=0, column=2, padx=10)
+
+# Summary Section
+label_balance = tk.Label(window, text="Total Balance: " + str(total), font=("Arial", 12, "bold"))
+label_balance.pack(pady=5)
+
+text_summary = tk.Text(window, width=70, height=15)
+text_summary.pack(pady=5)
+
+update_summary()
+
+# Run app
+window.mainloop()
