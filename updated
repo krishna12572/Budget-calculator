@@ -1,0 +1,104 @@
+import json
+import csv
+import datetime
+import os
+
+# File setup based on today's date
+date_input = input("Enter today's date (YYYY-MM-DD): ")
+json_file = date_input + ".json"
+csv_file = date_input + ".csv"
+
+# Load existing data if file exists
+if os.path.exists(json_file):
+    with open(json_file, "r") as file:
+        data = json.load(file)
+else:
+    data = {"transactions": [], "total": 0}
+
+total = data["total"]
+
+def save_to_json():
+    with open(json_file, "w") as file:
+        json.dump(data, file, indent=4)
+
+def export_to_csv():
+    with open(csv_file, "w", newline="") as file:
+        writer = csv.writer(file)
+        writer.writerow(["Date", "Type", "Category", "Amount", "Balance"])
+        for t in data["transactions"]:
+            writer.writerow([t["date"], t["type"], t["category"], t["amount"], t["balance"]])
+    print("Data exported to", csv_file)
+
+while True:
+    print("\n1. Enter Income\n2. Enter Expense\n3. Summary table\n4. Export CSV\n5. Reset Data\n6. Quit")
+    
+    try:
+        choice = int(input("Choose an option: "))
+    except ValueError:
+        print("Please enter a valid number.")
+        continue
+
+    today_str = str(datetime.date.today())
+
+    if choice == 1:
+        try:
+            income = float(input("Enter your income: "))
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+            continue
+        category = input("Enter category (e.g. salary, bonus): ")
+        total += income
+        transaction = {
+            "date": today_str,
+            "type": "Income",
+            "category": category,
+            "amount": income,
+            "balance": total
+        }
+        data["transactions"].append(transaction)
+        data["total"] = total
+        save_to_json()
+        print("Income added. Total balance:", total)
+
+    elif choice == 2:
+        category = input("Enter expense category (e.g. food, travel): ")
+        try:
+            amount = float(input("Enter amount for " + category + ": "))
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+            continue
+        total -= amount
+        transaction = {
+            "date": today_str,
+            "type": "Expense",
+            "category": category,
+            "amount": -amount,
+            "balance": total
+        }
+        data["transactions"].append(transaction)
+        data["total"] = total
+        save_to_json()
+        print("Expense added. Remaining balance:", total)
+
+    elif choice == 3:
+        print("\n--- Summary ---")
+        for t in data["transactions"]:
+            print(t["date"], "|", t["type"], "|", t["category"], "|", t["amount"], "| Balance:", t["balance"])
+        print("\nTotal balance:", total)
+
+    elif choice == 4:
+        export_to_csv()
+
+    elif choice == 5:
+        data = {"transactions": [], "total": 0}
+        total = 0
+        save_to_json()
+        print("Data reset successfully.")
+
+    elif choice == 6:
+        print("Thank you for using this app!")
+        save_to_json()
+        break
+
+    else:
+        print("Invalid option, please try again.")
