@@ -1,60 +1,31 @@
-Simple Finance Tracker
+# 💰 Simple Finance Tracker
 
-Project Image
-Add your project screenshot or gif here
+A lightweight Python application to help you keep track of your daily income and expenses, all in one easy-to-use interface.
+<img width="970" height="772" alt="image" src="https://github.com/user-attachments/assets/a826569c-96d4-4f5a-8539-e5a377157cfc" />
 
-Table of Contents
 
-Description
+## Features
 
-Technologies
+- **Add Income & Expenses:** Quickly log your earnings and spendings with categories.  
+- **Live Summary:** View all transactions with dates, categories, amounts, and running balance.  
+- **JSON Persistence:** Your data is automatically saved to a JSON file for safe keeping.  
+- **Reset Data:** Start fresh anytime without worrying about losing previous records.  
+- **User-Friendly GUI:** A clean and intuitive interface built with Tkinter — no terminal needed.  
 
-How To Use
+## How It Works
 
-License
+1. Open the application.  
+2. Enter the **amount** and **category** of your transaction.  
+3. Click **Add Income** or **Add Expense**.  
+4. Your transaction will be recorded, and the summary will update instantly.  
+5. Your total balance is always displayed at the top.  
 
-Author Info
+## Setup
 
-Description
+1. Make sure you have Python 3 installed.  
+2. Install Tkinter (usually included with Python).  
+3. Run the script:
 
-This project is a simple personal finance tracker developed using Python and Tkinter.
-
-The app features:
-
-Add and track income and expenses with categories
-
-Live summary of all transactions with dates, amounts, and running balance
-
-JSON file persistence to save daily data automatically
-
-Reset data functionality to start fresh anytime
-
-User-friendly GUI for easy interaction without using the terminal
-
-This project helped us understand data persistence, GUI development with Tkinter, and basic finance tracking logic.
-
-Technologies
-
-Python 3
-
-Tkinter
-
-How To Use
-Installation
-
-Clone the repository or download the ZIP.
-
-Navigate to the project folder.
-
-Make sure you have Python 3 installed.
-
-Run the script:
-
+```bash
 python finance_tracker.py
 
-
-The app will automatically create a JSON file to save your transactions for the day.
-
-License
-
-This project is open-source and free to use.
