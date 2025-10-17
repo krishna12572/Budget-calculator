@@ -14,30 +14,36 @@ Reset Data: Start fresh anytime without worrying about losing previous records.
 
 User-Friendly GUI: A clean and intuitive interface built with Tkinter — no terminal needed.
 
+
+
 ✅How It Works
 
-Open the application.
+1.Open the application.
 
-Enter the amount and category of your transaction.
+2.Enter the amount and category of your transaction.
 
-Click Add Income or Add Expense.
+3.Click Add Income or Add Expense.
 
-Your transaction will be recorded, and the summary will update instantly.
+4.Your transaction will be recorded, and the summary will update instantly.
 
-Your total balance is always displayed at the top.
+5.Your total balance is always displayed at the top.
+
+
 
 ⚙️Setup
 
 Make sure you have Python 3 installed.
 
-Install Tkinter (usually included with Python).
+1.Install Tkinter (usually included with Python).
 
-Run the script:
+2.Run the script:
 
 python finance_tracker.py
 
 
-The app will create a JSON file for the day automatically to save your transactions.
+3.The app will create a JSON file for the day automatically to save your transactions.
+
+
 
 📸Screenshot
 
